@@ -1,15 +1,11 @@
-import { useState, useEffect } from 'react';
-import { Typography, LinearProgress } from '@mui/material';
+import { useState, useEffect, useContext } from 'react';
+import { LinearProgress } from '@mui/material';
 import { produce } from 'immer';
 import fetchCurrencies from '../../services/api';
-import { Snackbar, CurrenciesTable } from '../../components';
+import { CurrenciesTable } from '../../components';
+import { MainLayoutContext } from '../../layouts';
 import './styles.css';
 
-const INITIAL_SNACKBAR = {
-  isOpen: false,
-  message: null,
-  severity: 'info',
-};
 const INITIAL_CURRENCIES = {
   isLoading: false,
   page: 1,
@@ -21,35 +17,12 @@ const INITIAL_CURRENCIES = {
 const CACHE_TIME = 3000;
 
 export const Grid = () => {
-  const [feedback, setFeedback] = useState({
-    isLoading: false,
-    alert: {
-      isOpen: false,
-      message: null,
-    },
-    snackbar: INITIAL_SNACKBAR,
-  });
+  const {
+    setPageTitle,
+    openSnackbar,
+  } = useContext(MainLayoutContext);
+
   const [currencies, setCurrencies] = useState(INITIAL_CURRENCIES);
-
-  const openSnackbar = (message, severity = 'info') => {
-    const newState = produce(feedback, (draft) => {
-      draft.snackbar = {
-        isOpen: true,
-        message: message,
-        severity: severity,
-      }
-      return draft;
-    })
-    setFeedback(newState);
-  }
-
-  const closeSnackbar = () => {
-    const newState = produce(feedback, (draft) => {
-      draft.snackbar = INITIAL_SNACKBAR;
-      return draft;
-    })
-    setFeedback(newState);
-  }
 
   const getData = async () => {
     const timeSinceLastRequest = Date.now() - currencies?.lastServerRequest;
@@ -88,21 +61,19 @@ export const Grid = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currencies.page]);
 
+  useEffect(() => {
+    setPageTitle('Crypto Currencies');
+  }, []);
+
   return (
     <div className="grid-page">
       { currencies.isLoading && <LinearProgress /> }
-      <Typography variant="h3" component="h1">Crypto Currencies</Typography>
 
       <CurrenciesTable
         currencies={currencies.data}
         isLoading={currencies.isLoading}
         getData={getData}
         nextPage={nextPage}
-      />
-
-      <Snackbar
-        {...feedback.snackbar}
-        onClose={closeSnackbar}
       />
     </div>
   );

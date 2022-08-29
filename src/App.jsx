@@ -1,10 +1,13 @@
 import './App.css';
 import { Grid } from './pages';
+import { MainLayout } from './layouts';
 
 const App = () => {
   return (
     <div className="app">
-      <Grid/>
+      <MainLayout>
+        <Grid/>
+      </MainLayout>
     </div>
   );
 }
