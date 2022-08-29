@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react';
-import { LinearProgress } from '@mui/material';
 import { produce } from 'immer';
 import fetchCurrencies from '../../services/api';
 import { CurrenciesTable } from '../../components';
@@ -20,6 +19,7 @@ export const Grid = () => {
   const {
     setPageTitle,
     openSnackbar,
+    setShowProgressBar
   } = useContext(MainLayoutContext);
 
   const [currencies, setCurrencies] = useState(INITIAL_CURRENCIES);
@@ -64,11 +64,14 @@ export const Grid = () => {
   useEffect(() => {
     setPageTitle('Crypto Currencies');
   }, []);
+ 
+  useEffect(() => {
+    setShowProgressBar(currencies?.isLoading);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currencies?.isLoading]);
 
   return (
     <div className="grid-page">
-      { currencies.isLoading && <LinearProgress /> }
-
       <CurrenciesTable
         currencies={currencies.data}
         isLoading={currencies.isLoading}

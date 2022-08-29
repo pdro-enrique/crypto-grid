@@ -1,7 +1,7 @@
 import { useState, createContext } from 'react';
-import { Snackbar } from '../../components';
 import { produce } from 'immer';
-import { Typography } from '@mui/material';
+import { Typography, LinearProgress } from '@mui/material';
+import { Snackbar } from '../../components';
 
 export const MainLayoutContext = createContext('main-layout');
 
@@ -13,6 +13,7 @@ export const INITIAL_SNACKBAR = {
 
 export const MainLayout = ({ children }) => {
   const [pageTitle, setPageTitle] = useState();
+  const [showProgressBar, setShowProgressBar] = useState();
   const [feedback, setFeedback] = useState({
     isLoading: false,
     alert: {
@@ -45,12 +46,14 @@ export const MainLayout = ({ children }) => {
   return (
     <div className="main-layout">
       <MainLayoutContext.Provider value={{
-          pageTitle: pageTitle,
-          setPageTitle: setPageTitle,
-          openSnackbar: openSnackbar,
-          closeSnackbar: closeSnackbar,
+          pageTitle,
+          setPageTitle,
+          openSnackbar,
+          closeSnackbar,
+          setShowProgressBar
         }}
       >
+        { showProgressBar && <LinearProgress /> }
         <Typography variant="h3" component="h1">{pageTitle}</Typography>
         {children}
         <Snackbar
