@@ -1,7 +1,7 @@
 import { useState, createContext } from 'react';
 import { produce } from 'immer';
 import { Typography, LinearProgress, Grid } from '@mui/material';
-import { Snackbar, Header } from '../../components';
+import { Snackbar, Header, SaveList } from '../../components';
 
 export const MainLayoutContext = createContext('main-layout');
 
@@ -56,8 +56,9 @@ export const MainLayout = ({ children }) => {
         { showProgressBar && <LinearProgress /> }
         <Header/>
         <Grid container direction="column" gap="32px" sx={{ padding: "32px" }}>
-          <Grid item>
+          <Grid container justifyContent="space-between" >
             <Typography variant="h3" component="h1">{pageTitle}</Typography>
+            <SaveList/>
           </Grid>
           <Grid item>
             {children}

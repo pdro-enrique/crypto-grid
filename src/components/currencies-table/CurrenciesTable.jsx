@@ -19,7 +19,7 @@ export const CurrenciesTable = ({
   if (currencies?.length) {
     return (
       <div className="currencies-table">
-        <Box sx={{ height: 400, width: '100%' }}>
+        <Box>
           <DataGrid
             rows={currencies.map(coin => ({
               id: coin.id,
