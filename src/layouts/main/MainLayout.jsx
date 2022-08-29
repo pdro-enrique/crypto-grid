@@ -1,7 +1,7 @@
 import { useState, createContext } from 'react';
 import { produce } from 'immer';
-import { Typography, LinearProgress } from '@mui/material';
-import { Snackbar } from '../../components';
+import { Typography, LinearProgress, Grid } from '@mui/material';
+import { Snackbar, Header } from '../../components';
 
 export const MainLayoutContext = createContext('main-layout');
 
@@ -46,16 +46,23 @@ export const MainLayout = ({ children }) => {
   return (
     <div className="main-layout">
       <MainLayoutContext.Provider value={{
-          pageTitle,
-          setPageTitle,
-          openSnackbar,
-          closeSnackbar,
-          setShowProgressBar
-        }}
+        pageTitle,
+        setPageTitle,
+        openSnackbar,
+        closeSnackbar,
+        setShowProgressBar
+      }}
       >
         { showProgressBar && <LinearProgress /> }
-        <Typography variant="h3" component="h1">{pageTitle}</Typography>
-        {children}
+        <Header/>
+        <Grid container direction="column" gap="32px" sx={{ padding: "32px" }}>
+          <Grid item>
+            <Typography variant="h3" component="h1">{pageTitle}</Typography>
+          </Grid>
+          <Grid item>
+            {children}
+          </Grid>
+        </Grid>
         <Snackbar
           {...feedback.snackbar}
           onClose={closeSnackbar}

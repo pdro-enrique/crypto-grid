@@ -1,41 +1,48 @@
-import { Button, Typography } from '@mui/material';
-import { ArrowForward as ArrowForwardIcon } from '@mui/icons-material';
+import { Button, Typography, Box } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
+import columns from './columns.json';
 
 export const CurrenciesTable = ({
   currencies,
   isLoading,
   getData,
-  nextPage
+  setCurrencies
 }) => {
+  const onPageChange = (page) => {
+    setCurrencies(state => ({ ...state, page }))
+  }
+
+  const onSelectionModelChange = (selected) => {
+    setCurrencies(state => ({ ...state, selected }))
+  }
+
   if (currencies?.length) {
     return (
       <div className="currencies-table">
-        <table>
-          <thead>
-            <tr>
-              <td>Coin</td>
-              <td>Symbol</td>
-              <td>Price</td>
-              <td>24h</td>
-              <td>Mkt Cap</td>
-            </tr>
-          </thead>
-          <tbody>
-            {currencies.map((currency) => (
-              <tr key={currency.id}>
-                <td>{currency.name}</td>
-                <td>{currency.symbol}</td>
-                <td>{currency.current_price}</td>
-                <td>{currency.price_change_percentage_24h}</td>
-                <td>{currency.market_cap}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <Button onClick={nextPage} variant="contained" disabled={isLoading}>
-          Next <ArrowForwardIcon/>
-        </Button>
+        <Box sx={{ height: 400, width: '100%' }}>
+          <DataGrid
+            rows={currencies.map(coin => ({
+              id: coin.id,
+              name: coin.name,
+              symbol: coin.symbol,
+              current_price: coin.current_price,
+              price_change_percentage_24h: coin.price_change_percentage_24h,
+              market_cap: coin.market_cap,
+            }))}
+            columns={columns}
+            pageSize={10}
+            checkboxSelection
+            disableSelectionOnClick
+            experimentalFeatures={{ newEditingApi: true }}
+            density="comfortable"
+            loading={isLoading}
+            onPageChange={onPageChange}
+            showColumnRightBorder
+            showCellRightBorder
+            autoHeight
+            onSelectionModelChange={onSelectionModelChange}
+          />
+        </Box>
       </div>
     );
   }

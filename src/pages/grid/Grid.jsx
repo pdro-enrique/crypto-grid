@@ -9,6 +9,7 @@ const INITIAL_CURRENCIES = {
   isLoading: false,
   page: 1,
   data: [],
+  selected: [],
   lastServerRequest: null,
 };
 // TODO: add more time later
@@ -33,7 +34,6 @@ export const Grid = () => {
 
     try {
       const response = await fetchCurrencies(currencies.page);
-      console.log('🚀 ~ response', response);
 
       const newState = produce(currencies, (draft) => {
         draft.data = response;
@@ -50,16 +50,10 @@ export const Grid = () => {
     }
   }
 
-  const nextPage = () => {
-    setCurrencies(state => ({
-      ...state, page: state.page + 1
-    }))
-  }
-
   useEffect(() => {
     getData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currencies.page]);
+  }, []);
 
   useEffect(() => {
     setPageTitle('Crypto Currencies');
@@ -76,7 +70,7 @@ export const Grid = () => {
         currencies={currencies.data}
         isLoading={currencies.isLoading}
         getData={getData}
-        nextPage={nextPage}
+        setCurrencies={setCurrencies}
       />
     </div>
   );
