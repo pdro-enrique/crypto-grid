@@ -1,0 +1,27 @@
+[
+  {
+    "field": "name",
+    "headerName": "Coin",
+    "width": 150
+  },
+  {
+    "field": "symbol",
+    "headerName": "Symbol",
+    "width": 150
+  },
+  {
+    "field": "current_price",
+    "headerName": "Price",
+    "width": 150
+  },
+  {
+    "field": "price_change_percentage_24h",
+    "headerName": "24h",
+    "width": 150
+  },
+  {
+    "field": "market_cap",
+    "headerName": "Mkt Cap",
+    "width": 300
+  }
+]
