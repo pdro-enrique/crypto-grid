@@ -1,0 +1,24 @@
+.save-list {
+
+}
+.save-list__action {
+  display: flex;
+  gap: 16px;
+}
+.save-list__add-btn {
+
+}
+.save-list__drawer {
+  
+}
+.save-list__drawer-title {
+  padding: 32px;
+  border-bottom: 1px solid silver;
+}
+.save-list__drawer-body {
+  padding: 32px;
+}
+.save-list__drawer-actions {
+  padding: 32px;
+  padding-top: 0;
+}
