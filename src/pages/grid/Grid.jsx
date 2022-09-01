@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { produce } from 'immer';
 import fetchCurrencies from '../../services/api';
-import { CurrenciesTable } from '../../components';
+import { CoinsTable } from '../../components';
 import { MainLayoutContext } from '../../layouts';
 import './styles.css';
 
@@ -66,7 +66,7 @@ export const Grid = () => {
 
   return (
     <div className="grid-page">
-      <CurrenciesTable
+      <CoinsTable
         currencies={currencies.data}
         isLoading={currencies.isLoading}
         getData={getData}
