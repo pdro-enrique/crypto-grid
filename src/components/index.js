@@ -1,4 +1,6 @@
 export { Snackbar } from './snackbar/Snackbar';
-export { CurrenciesTable } from './currencies-table/CurrenciesTable';
+export { CoinsTable } from './coins-table/CoinsTable';
 export { Header } from './header/Header';
-export { SaveList } from './save-list/SaveList';
+export { Drawer } from './drawer/Drawer';
+export { CreateListBtn } from './create-list-btn/CreateListBtn';
+export { Lottie } from './lottie/Lottie';

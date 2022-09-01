@@ -1,19 +1,23 @@
+import { useContext } from 'react';
 import { Button, Typography, Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import columns from './columns.json';
+import { StoreContext } from '../../store';
 
-export const CurrenciesTable = ({
+export const CoinsTable = ({
   currencies,
   isLoading,
   getData,
   setCurrencies
 }) => {
+  const { setStore } = useContext(StoreContext);
+
   const onPageChange = (page) => {
     setCurrencies(state => ({ ...state, page }))
   }
 
-  const onSelectionModelChange = (selected) => {
-    setCurrencies(state => ({ ...state, selected }))
+  const onSelectionModelChange = (selectedCoins) => {
+    setStore(state => ({ ...state, selectedCoins }))
   }
 
   if (currencies?.length) {
@@ -57,4 +61,4 @@ export const CurrenciesTable = ({
   );
 }
 
-export default CurrenciesTable;
+export default CoinsTable;
